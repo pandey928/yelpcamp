@@ -7,6 +7,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const ExpressError = require('./utils/expresserror');
 const methodOverride = require('method-override');
@@ -45,6 +46,7 @@ const sessionConfig = {
     secret: 'thisshouldbeabettersecret!',
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({mongoUrl: process.env.MONGO_URI}),
     cookie: {
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
