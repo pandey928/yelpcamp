@@ -18,12 +18,11 @@ const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./models/reviews');
-
-mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp', {
+const dbURI = process.env.MONGO_URI;
+mongoose.connect(dbURI, {
     useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
